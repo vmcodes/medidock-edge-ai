@@ -11,9 +11,11 @@
 
 ---
 
-## 📺 Demo Video
+## 🔗 Course
 
-The demo video (`assets/Medi_Dock_Video.mp4`) shows the working prototype in action — strip placement, on-device OCR + classification, and audio output announcement.
+This project was submitted as part of **CP 330: Edge AI** at the Indian Institute of Science, Bengaluru.
+
+📖 Course website: [https://www.samy101.com/edge-ai-26/](https://www.samy101.com/edge-ai-26/)
 
 ---
 
