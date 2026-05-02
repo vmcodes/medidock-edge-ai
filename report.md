@@ -206,15 +206,19 @@ The quantised ONNX model is converted to TensorFlow SavedModel via `onnx-tf`, th
 
 ### Efficiency Results
 
-| Model Format | Size | Inference (CPU, ~) |
-|---|---|---|
-| Full ONNX (FP32) | ~0.73 MB | ~25–40 ms/frame |
-| INT8 Quantised ONNX | ~0.19 MB | ~12–20 ms/frame |
-| TFLite (quantised) | ~0.20 MB | ~15–22 ms/frame |
+**Pruning:** 45.29% of weights removed (magnitude threshold = 0.025)
 
-> *Note: Inference benchmarks measured via `onnxruntime` on CPU with 200 warm-up runs. On-device RPi 5 timings will be slightly higher (~30–60 ms) due to ARM CPU differences.*
+| Model | Parameters | FLOPs | Size | Latency | Throughput |
+|---|---|---|---|---|---|
+| Teacher (ResNet-18) | 11,178,051 | 1.814 GFLOPs | ~44 MB | 39.55 ms | 25.3 FPS |
+| Student (Original) | 98,307 | 0.049 GFLOPs | ~0.73 MB | 4.10 ms | 244.0 FPS |
+| Student (After Pruning) | 98,307 | 0.049 GFLOPs | ~0.19 MB | 4.89 ms | 204.5 FPS |
 
-**Trade-offs:** Pruning at threshold=0.025 removes a portion of near-zero weights with negligible accuracy loss on the validation set. INT8 quantisation introduces minor quantisation error but reduces model size by ~4× and improves CPU cache utilisation.
+**Key takeaways:**
+- The student model has **113× fewer parameters** than the teacher (98K vs 11.2M).
+- The student runs at **244 FPS** on CPU — nearly **10× faster** than the teacher's 25.3 FPS.
+- Post-pruning latency increases marginally (4.10 ms → 4.89 ms) due to sparse memory access patterns, while model storage drops by ~4× via INT8 quantisation.
+- FLOPs reduce from 1.814 GFLOPs (teacher) to 0.049 GFLOPs (student) — a **37× reduction** in compute.
 
 ---
 
