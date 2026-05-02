@@ -41,8 +41,7 @@ medi-dock/
     ├── Placement_of_Camera.jpeg       ← Camera placement inside enclosure
     ├── Slot_to_insert_strip.jpeg      ← Strip insertion slot photo
     ├── Sample_Strip.jpeg              ← Sample medicine strip photo
-    ├── Class_Distribution_Graph.jpeg  ← Dataset class distribution bar chart
-    └── Medi_Dock_Video.mp4            ← Working demo video
+    └── Class_Distribution_Graph.jpeg  ← Dataset class distribution bar chart
 ```
 
 ---
