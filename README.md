@@ -153,16 +153,18 @@ Edit the patient vitals in the final cell of Notebook 2 (`suggest_dosage(...)`) 
 
 ## 📊 Results Summary
 
-| Model | Size | CPU Inference |
-|---|---|---|
-| TinyStudent FP32 ONNX | ~0.73 MB | ~25–40 ms |
-| TinyStudent INT8 ONNX | ~0.19 MB | ~12–20 ms |
-| TFLite (quantised) | ~0.20 MB | ~15–22 ms |
+**Pruning:** 45.29% of weights removed (magnitude threshold = 0.025)
 
-- **Teacher (ResNet-18):** ~11M parameters
-- **Student (TinyStudent):** ~0.18M parameters → **60× compression**
-- **Pruning:** Magnitude threshold = 0.025 (post-training)
-- **Quantisation:** Dynamic INT8 (ONNX Runtime)
+| Model | Parameters | FLOPs | Latency | Throughput |
+|---|---|---|---|---|
+| Teacher (ResNet-18) | 11,178,051 | 1.814 GFLOPs | 39.55 ms | 25.3 FPS |
+| Student (Original) | 98,307 | 0.049 GFLOPs | 4.10 ms | 244.0 FPS |
+| Student (After Pruning) | 98,307 | 0.049 GFLOPs | 4.89 ms | 204.5 FPS |
+
+- **113× fewer parameters** than the teacher
+- **37× fewer FLOPs** (1.814 GFLOPs → 0.049 GFLOPs)
+- **~10× faster inference** — 244 FPS vs 25.3 FPS on CPU
+- Post-pruning size reduced ~4× via INT8 quantisation (~0.19 MB final model)
 
 > 📊 Class distribution:
 
